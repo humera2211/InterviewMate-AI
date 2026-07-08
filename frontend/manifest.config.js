@@ -11,7 +11,7 @@ export default defineManifest({
     default_title: "InterviewMate AI",
   },
 
-  permissions: ["storage", "activeTab", "scripting"],
+  permissions: ["storage", "activeTab", "tabs", "scripting"],
 
   host_permissions: [
     "https://leetcode.com/*",

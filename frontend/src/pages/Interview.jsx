@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Paragraph = () => {
+const Interview = () => {
   const [text, setText] = useState("");
-  const [para, setPara] = useState("");
+  const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,14 +19,14 @@ const Paragraph = () => {
     try {
       setLoading(true);
       setError("");
-      setPara("");
+      setResponse("");
 
-      const response = await axios.post("/api/v1/openai/paragraph", { text });
+      const response = await axios.post("/api/v1/openai/chatbot", { text });   //*backend path name change krna h
 
-      setPara(response.data);
+      setResponse(response.data);
     } catch (err) {
       console.error(err);
-      setError("Failed to generate paragraph.");
+      setError("Failed to answer.");
     } finally {
       setLoading(false);
     }
@@ -36,13 +36,13 @@ const Paragraph = () => {
     <div className="min-h-screen bg-slate-100 flex justify-center items-center p-6">
       <div className="w-full max-w-4xl bg-white shadow-xl rounded-2xl p-8">
         <h1 className="text-4xl font-bold text-center text-cyan-600 mb-6">
-          Paragraph generator
+          Chatbot
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <textarea
-            rows={2}
-            placeholder="type words here..."
+            rows={10}
+            placeholder="Paste your text here..."
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
@@ -53,7 +53,7 @@ const Paragraph = () => {
             disabled={loading}
             className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-lg transition duration-200 disabled:bg-gray-400"
           >
-            {loading ? "Generating Paragraph..." : "Generate Paragraph"}
+            {loading ? "Generating response..." : "Generate response"}
           </button>
         </form>
 
@@ -63,15 +63,15 @@ const Paragraph = () => {
           </div>
         )}
 
-        {para && (
+        {response && (
           <div className="mt-8">
             <h2 className="text-2xl font-semibold mb-3 text-gray-800">
-              Paragraph
+              Response
             </h2>
 
             <textarea
               rows={10}
-              value={para}
+              value={response}
               readOnly
               className="w-full border border-gray-300 rounded-lg p-4 bg-gray-50 resize-none"
             />
@@ -88,4 +88,4 @@ const Paragraph = () => {
   );
 };
 
-export default Paragraph;
+export default Interview;
