@@ -17,4 +17,11 @@ export default defineManifest({
     "https://leetcode.com/*",
     "https://www.geeksforgeeks.org/*",
   ],
+
+  content_scripts: [
+    {
+      matches: ["https://leetcode.com/*", "https://www.geeksforgeeks.org/*"],
+      js: ["src/content/content.js"],
+    },
+  ],
 });
