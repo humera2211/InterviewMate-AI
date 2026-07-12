@@ -5,7 +5,7 @@ dotenv.config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
+  model: "gemini-2.5-flash-lite",
 });
 
 module.exports.summaryController = async (req, res) => {
@@ -122,60 +122,90 @@ ${difficulty}
 Problem Statement:
 ${statement}
 
-Explain this problem in beginner-friendly language.
+Explain this problem for a beginner.
+
+Return your answer in VALID MARKDOWN.
+
+Format exactly like this:
+
+#Problem Explanation
+
+Explain what the problem is asking in simple language.
+
+#Goal
+
+- Bullet points
+- What needs to be found
+- Important constraints
+
+#Example Intuition
+
+Explain using a small example.
 
 Rules:
-- Do NOT give the algorithm.
+- Do NOT explain the algorithm.
 - Do NOT provide code.
-- Just explain what the problem is asking.
-- Keep the explanation concise.
+- Use markdown headings and bullet points.
 `;
         break;
       case "hint":
         prompt = `
 You are an expert DSA mentor.
 
-Problem Title:
-${title}
-
-Difficulty:
-${difficulty}
-
-Problem Statement:
+Problem:
 ${statement}
 
-Give ONLY ONE useful hint.
+Give exactly ONE hint.
+
+Return your answer in VALID MARKDOWN.
+
+Format:
+
+#Hint
+
+...
+
+#Think About
+
+- point
+- point
 
 Rules:
-- Do NOT reveal the complete algorithm.
-- Do NOT give code.
-- Encourage the student to think.
-- Maximum 80 words.
+- Never reveal the full solution.
+- Never provide code.
+- Maximum 100 words.
 `;
         break;
       case "approach":
         prompt = `
-You are an expert software engineer preparing a student for coding interviews.
+You are preparing a student for coding interviews.
 
-Problem Title:
-${title}
-
-Difficulty:
-${difficulty}
-
-Problem Statement:
+Problem:
 ${statement}
 
-Explain:
+Return your answer in VALID MARKDOWN.
 
-1. Core intuition
-2. Optimal approach
-3. Time Complexity
-4. Space Complexity
+Format exactly:
+
+#Intuition
+
+...
+
+#Optimal Approach
+
+Step-by-step explanation.
+
+#Time Complexity
+
+- Time:
+
+#Space Complexity
+
+- Space:
 
 Rules:
 - Do NOT generate code.
-- Keep the explanation concise.
+- Use headings and bullet points.
 `;
         break;
 

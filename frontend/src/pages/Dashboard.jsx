@@ -1,6 +1,8 @@
 import useProblemData from "../hooks/useProblemData";
 import { useState } from "react";
 import { askAI } from "../services/aiService";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"
 
 export default function Dashboard() {
   const { problem, loading, error } = useProblemData();
@@ -22,6 +24,8 @@ export default function Dashboard() {
       setLoadingAI(true);
       const data = await askAI(problem, action);
 
+      console.log("Response : " , data.response);
+
       setResponse(data.response);
     } catch (err) {
       setResponse("Something went wrong");
@@ -32,65 +36,92 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-5 bg-zinc-900 text-white w-[500px] h-[720px]  flex flex-col">
-      <h1 className="text-2xl font-bold mb-6">InterviewMate AI</h1>
+    <div className="w-[500px] h-[720px] bg-zinc-900 text-white p-5 flex flex-col">
+      <h1 className="text-2xl font-bold mb-5">InterviewMate AI</h1>
 
-      <div className="border border-zinc-700 rounded-xl p-4 flex flex-col flex-1 overflow-hidden">
-        <div>
-          <p className="font-semibold">Platform</p>
-          <p>{problem?.platform}</p>
+      <div className="flex-1 border border-zinc-700 rounded-xl p-4 flex flex-col min-h-0">
+        {/* Problem Info */}
+        <div className="space-y-3 flex-shrink-0">
+          <div>
+            <p className="font-semibold">Platform</p>
+            <p>{problem?.platform}</p>
+          </div>
+
+          <div>
+            <p className="font-semibold">Title</p>
+            <p>{problem?.title}</p>
+          </div>
+
+          <div>
+            <p className="font-semibold">Difficulty</p>
+            <p>{problem?.difficulty}</p>
+          </div>
+
+          <div>
+            <p className="font-semibold mb-1">Statement</p>
+
+            <div className="max-h-28 overflow-y-auto rounded-md bg-zinc-800 p-2 text-sm whitespace-pre-wrap">
+              {problem?.statement}
+            </div>
+          </div>
         </div>
 
-        <div>
-          <p className="font-semibold">Title</p>
-          <p>{problem?.title}</p>
-        </div>
-
-        <div>
-          <p className="font-semibold">Difficulty</p>
-          <p>{problem?.difficulty}</p>
-        </div>
-
-        <div>
-          <p className="font-semibold">Statement</p>
-
-          <p className="text-sm whitespace-pre-wrap max-h-28 overflow-y-auto">
-            {problem?.statement}
-          </p>
-        </div>
-
-        <div className="mt-5 border-t border-gray-700 pt-4 flex flex-col flex-1">
+        {/* AI Section */}
+        <div className="mt-5 pt-4 border-t border-zinc-700 flex flex-col flex-1 min-h-0">
           <h2 className="text-lg font-semibold mb-3">AI Assistant</h2>
 
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-3 gap-2 flex-shrink-0">
             <button
-              className="bg-cyan-600 hover:bg-cyan-700 rounded-md py-2 font-medium"
-              onClick={()=>handleAIAction("explain")}
+              disabled={loadingAI}
+              onClick={() => handleAIAction("explain")}
+              className={`rounded-md py-2 text-sm font-medium transition ${
+                loadingAI
+                  ? "bg-gray-600 cursor-not-allowed"
+                  : "bg-cyan-600 hover:bg-cyan-700"
+              }`}
             >
-              Explain Problem
+              Explain
             </button>
 
             <button
-              className="bg-yellow-600 hover:bg-yellow-700 rounded-md py-2 font-medium"
-              onClick={()=>handleAIAction("hint")}
+              disabled={loadingAI}
+              onClick={() => handleAIAction("hint")}
+              className={`rounded-md py-2 text-sm font-medium transition ${
+                loadingAI
+                  ? "bg-gray-600 cursor-not-allowed"
+                  : "bg-yellow-600 hover:bg-yellow-700"
+              }`}
             >
-              Give Hint
+              Hint
             </button>
 
             <button
-              className="bg-green-600 hover:bg-green-700 rounded-md py-2 font-medium"
-              onClick={()=>handleAIAction("approach")}
+              disabled={loadingAI}
+              onClick={() => handleAIAction("approach")}
+              className={`rounded-md py-2 text-sm font-medium transition ${
+                loadingAI
+                  ? "bg-gray-600 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
             >
-              Optimal Approach
+              Approach
             </button>
           </div>
 
-          <div className="mt-3 bg-zinc-800 rounded-lg border border-zinc-700 p-3 flex-1 overflow-y-auto min-h-0">
-            <p className="whitespace-pre-wrap text-sm">
-              {loadingAI
-                ? "Generating response..."
-                : response || "AI response will apprear here"}
-            </p>
+          {/* Response */}
+          <div className="mt-4 flex-1 min-h-0 overflow-y-auto rounded-lg border border-zinc-700 bg-zinc-800 p-4">
+            {loadingAI ? (
+              <p className="text-gray-400">Generating response...</p>
+            ) : response ? (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                className="text-sm leading-7"
+              >
+                {response}
+              </ReactMarkdown>
+            ) : (
+              <p className="text-gray-400">AI response will appear here.</p>
+            )}
           </div>
         </div>
       </div>

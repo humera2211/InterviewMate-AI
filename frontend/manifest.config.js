@@ -7,11 +7,20 @@ export default defineManifest({
   description: "AI Interview Companion for LeetCode and GeeksforGeeks",
 
   action: {
-    default_popup: "index.html",
+    //default_popup: "index.html",
     default_title: "InterviewMate AI",
   },
 
-  permissions: ["storage", "activeTab", "tabs", "scripting"],
+  permissions: ["storage", "activeTab", "tabs", "scripting" , "sidePanel" , ],
+
+  side_panel:{
+    default_path:"index.html"
+  } ,
+
+  background:{
+    service_worker: "src/background.js",
+    type:"module" ,
+  } ,
 
   host_permissions: [
     "https://leetcode.com/*",
