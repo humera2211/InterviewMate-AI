@@ -16,6 +16,7 @@ export default defineManifest({
   host_permissions: [
     "https://leetcode.com/*",
     "https://www.geeksforgeeks.org/*",
+    "http://localhost:8080/*",
   ],
 
   content_scripts: [
