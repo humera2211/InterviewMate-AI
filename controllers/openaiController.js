@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 
 dotenv.config();
+const ErrorResponse=require("../utils/errorResponse")
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -8,91 +9,6 @@ const model = genAI.getGenerativeModel({
   model: "gemini-2.5-flash-lite",
 });
 
-module.exports.summaryController = async (req, res) => {
-  try {
-    const { text } = req.body;
-
-    if (!text) {
-      return res.status(400).json({
-        success: false,
-        message: "Text is required",
-      });
-    }
-
-    const result = await model.generateContent(`Summarize this ${text}`);
-
-    const response = result.response.text();
-
-    return res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-};
-
-module.exports.paraController = async (req, res) => {
-  try {
-    const { text } = req.body;
-
-    console.time("Paragraph");
-
-    const result = await model.generateContent(
-      `Write a single paragraph of about 100 words on: ${text}`,
-    );
-
-    console.timeEnd("Paragraph");
-
-    const response = result.response.text();
-
-    return res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-};
-
-module.exports.chatbotController = async (req, res) => {
-  try {
-    const { text } = req.body;
-
-    if (!text) {
-      return res.status(400).json({
-        success: false,
-        message: "Question is required",
-      });
-    }
-
-    const result = await model.generateContent(`
-You are Yoda from Star Wars.
-
-Answer every question in Yoda's speaking style.
-
-Example:
-Me: What is your name?
-Yoda: Yoda, my name is.
-
-Me: ${text}
-Yoda:
-    `);
-
-    const response = result.response.text();
-
-    return res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
-
-    return res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-};
 
 //-------------------For extension----------------------
 module.exports.problemController = async (req, res) => {
@@ -149,31 +65,35 @@ Rules:
 `;
         break;
       case "hint":
-        prompt = `
+         prompt = `
 You are an expert DSA mentor.
 
-Problem:
+Problem Title:
+${title}
+
+Difficulty:
+${difficulty}
+
+Problem Statement:
 ${statement}
 
-Give exactly ONE hint.
-
-Return your answer in VALID MARKDOWN.
-
-Format:
-
-#Hint
-
-...
-
-#Think About
-
-- point
-- point
+Generate EXACTLY 3 progressive hints.
 
 Rules:
-- Never reveal the full solution.
-- Never provide code.
-- Maximum 100 words.
+- Hint 1 should be very subtle.
+- Hint 2 should reveal a little more.
+- Hint 3 should almost reveal the optimal approach.
+- Do NOT provide code.
+- Do NOT reveal the final solution.
+- Keep every hint under 50 words.
+
+Return ONLY in this format:
+
+1. <hint>
+
+2. <hint>
+
+3. <hint>
 `;
         break;
       case "approach":
@@ -216,9 +136,41 @@ Rules:
         });
     }
 
-    const result = await model.generateContent(prompt);
+    let response;
 
-    const response = result.response.text();
+    try{
+
+    const result = await model.generateContent(prompt);
+    response = result.response.text();
+    }catch(err)
+    {
+      console.log("Gemini Error:" , err);
+       if (
+         err.status === 503 ||
+         err.message?.includes("503") ||
+         err.message?.includes("Service Unavailable")
+       ) {
+         throw new ErrorResponse(
+           "AI model is currently busy. Please try again in a few seconds.",
+           503,
+         );
+       }
+
+       throw new ErrorResponse("Internal Server Error", 500);
+    }
+
+
+    if (action === "hint") {
+      const hints = response
+        .split(/\n?\d+\.\s/)
+        .filter(Boolean)
+        .map((hint) => hint.trim());
+
+      return res.status(200).json({
+        success: true,
+        hints,
+      });
+    }
 
     return res.status(200).json({
       success: true,
@@ -227,9 +179,9 @@ Rules:
   } catch (err) {
     console.log(err);
 
-    return res.status(500).json({
-      success: false,
-      message: err.message,
-    });
+     return res.status(err.statusCode || 500).json({
+       success: false,
+       message: err.message,
+     });
   }
 };
