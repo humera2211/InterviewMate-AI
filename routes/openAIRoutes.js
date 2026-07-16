@@ -1,6 +1,6 @@
 const express=require("express");
-const { problemController} = require("../controllers/openaiController");
 const router=express.Router();
+const { problemController} = require("../controllers/openaiController");
 
 
 router.post("/problem" , problemController);

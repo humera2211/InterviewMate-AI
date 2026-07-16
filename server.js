@@ -6,6 +6,7 @@ const dotenv=require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes=require("./routes/authRoutes");     //routes path
 const openAIRoutes=require("./routes/openAIRoutes");
+const interviewRoutes=require("./routes/interviewRoutes");
 const errorHandler = require("./middlewares/errorMiddleware");
 
 dotenv.config();
@@ -27,6 +28,7 @@ const PORT=process.env.PORT || 8080 ;    //agar nhi mila
 //API routes
 app.use('/api/v1/auth' , authRoutes);
 app.use('/api/v1/openai' , openAIRoutes);
+app.use('/api/v1/interview' , interviewRoutes); 
 
 
 //ERROR HANDLING Middleware (routes ke baad lgta h)

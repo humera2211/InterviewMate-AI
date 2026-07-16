@@ -1,10 +1,6 @@
 import useProblemData from "../hooks/useProblemData";
 
 import { useState } from "react";
-import { askAI } from "../services/aiService";
-
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import Header from "../components/Header";
 import NavigationTabs from "../components/NavigationTabs";
@@ -32,7 +28,35 @@ export default function Dashboard() {
       generatedAt: null,
     },
 
-    interview: [],
+    interview: {
+      started: false,
+
+      difficulty: "medium",
+
+      duration: 10,
+
+      totalQuestions: 5,
+
+      currentQuestion: 0,
+
+      questions: [],
+
+      answers: [],
+
+      currentAnswer: "",
+
+      score: null,
+
+      showResult: false,
+
+      timeLeft: 10 * 60, // seconds
+
+      evaluation: null,
+
+      evaluating: false,
+
+      showReview: false,
+    },
   });
   const [loadingAI, setLoadingAI] = useState(false);
   const [activeTab, setActiveTab] = useState("explain");
@@ -46,9 +70,8 @@ export default function Dashboard() {
     return <div className="p-5 text-red-500">{error}</div>;
   }
 
-
   return (
-    <div className="w-125 h-180 bg-zinc-900 text-white p-5 flex flex-col">
+    <div className="w-125 min-h-screen bg-zinc-900 text-white p-5 flex flex-col">
       {/* Header  */}
       <Header problem={problem} />
 
@@ -73,7 +96,13 @@ export default function Dashboard() {
 
       {activeTab === "approach" && <ApproachPanel />}
 
-      {activeTab === "interview" && <InterviewPanel />}
+      {activeTab === "interview" && (
+        <InterviewPanel
+          problem={problem}
+          responses={responses}
+          setResponses={setResponses}
+        />
+      )}
     </div>
   );
 }
