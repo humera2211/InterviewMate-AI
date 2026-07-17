@@ -1,10 +1,25 @@
-import { Trophy, RotateCcw, Eye, CheckCircle, TrendingUp } from "lucide-react";
+import {
+  Trophy,
+  RotateCcw,
+  Eye,
+  CheckCircle,
+  TrendingUp,
+  ArrowLeft,
+} from "lucide-react";
 
-export default function InterviewResult({ responses, setResponses }) {
+export default function InterviewResult({
+  responses,
+  setResponses,
+  evaluation,
+  fromHistory = false,
+}) {
   const interview = responses.interview;
-  const evaluation = interview.evaluation;
 
-  if (!evaluation) {
+  // History se data aaya ho to wahi use hoga,
+  // warna current interview evaluation use hoga.
+  const result = evaluation || interview.evaluation;
+
+  if (!result) {
     return (
       <div className="flex flex-1 items-center justify-center">
         <p>No evaluation available.</p>
@@ -12,7 +27,7 @@ export default function InterviewResult({ responses, setResponses }) {
     );
   }
 
-  const score = evaluation.overallScore;
+  const score = result.overallScore;
 
   let performance = "";
   let progressColor = "";
@@ -57,11 +72,29 @@ export default function InterviewResult({ responses, setResponses }) {
 
         showResult: false,
 
+        showReview: false,
+
         evaluation: null,
 
         evaluating: false,
 
+        historyReport: null,
+
         timeLeft: 600,
+      },
+    }));
+  }
+
+  function backToHistory() {
+    setResponses((prev) => ({
+      ...prev,
+
+      interview: {
+        ...prev.interview,
+
+        historyReport: null,
+
+        showReview: false,
       },
     }));
   }
@@ -70,20 +103,24 @@ export default function InterviewResult({ responses, setResponses }) {
     <div className="mt-5 flex flex-col gap-6">
       {/* Header */}
 
-      <div className="rounded-xl bg-zinc-800 border border-zinc-700 p-6 text-center">
+      <div className="rounded-xl border border-zinc-700 bg-zinc-800 p-6 text-center">
         <Trophy className="mx-auto text-yellow-400" size={50} />
 
-        <h2 className="mt-3 text-2xl font-bold">Interview Complete</h2>
+        <h2 className="mt-3 text-2xl font-bold">
+          {fromHistory ? "Interview Report" : "Interview Complete"}
+        </h2>
 
-        <p className="text-zinc-400 mt-2">
-          Great job completing your mock interview.
+        <p className="mt-2 text-zinc-400">
+          {fromHistory
+            ? "Review your previous interview."
+            : "Great job completing your mock interview."}
         </p>
       </div>
 
       {/* Overall Score */}
 
-      <div className="rounded-xl bg-zinc-800 border border-zinc-700 p-6">
-        <h3 className="font-semibold text-lg">Overall Score</h3>
+      <div className="rounded-xl border border-zinc-700 bg-zinc-800 p-6">
+        <h3 className="text-lg font-semibold">Overall Score</h3>
 
         <div className="mt-5 text-center">
           <p className="text-5xl font-bold text-violet-400">{score}</p>
@@ -93,7 +130,7 @@ export default function InterviewResult({ responses, setResponses }) {
           <p className="mt-3 font-semibold">{performance}</p>
         </div>
 
-        <div className="mt-6 h-3 rounded-full bg-zinc-700 overflow-hidden">
+        <div className="mt-6 h-3 overflow-hidden rounded-full bg-zinc-700">
           <div
             className={`h-full ${progressColor}`}
             style={{ width: `${score}%` }}
@@ -103,11 +140,11 @@ export default function InterviewResult({ responses, setResponses }) {
 
       {/* Category Scores */}
 
-      <div className="rounded-xl bg-zinc-800 border border-zinc-700 p-6">
-        <h3 className="font-semibold text-lg">Category Scores</h3>
+      <div className="rounded-xl border border-zinc-700 bg-zinc-800 p-6">
+        <h3 className="text-lg font-semibold">Category Scores</h3>
 
         <div className="mt-5 space-y-4">
-          {Object.entries(evaluation.categoryScores).map(([key, value]) => (
+          {Object.entries(result.categoryScores).map(([key, value]) => (
             <div key={key} className="flex justify-between">
               <span className="capitalize">
                 {key.replace(/([A-Z])/g, " $1")}
@@ -121,15 +158,15 @@ export default function InterviewResult({ responses, setResponses }) {
 
       {/* Strengths */}
 
-      <div className="rounded-xl bg-zinc-800 border border-green-500/30 p-6">
+      <div className="rounded-xl border border-green-500/30 bg-zinc-800 p-6">
         <div className="flex items-center gap-2">
           <CheckCircle className="text-green-400" size={20} />
 
-          <h3 className="font-semibold text-lg">Strengths</h3>
+          <h3 className="text-lg font-semibold">Strengths</h3>
         </div>
 
         <ul className="mt-4 space-y-3">
-          {evaluation.strengths.map((item, index) => (
+          {result.strengths.map((item, index) => (
             <li key={index} className="text-sm text-zinc-300">
               • {item}
             </li>
@@ -139,15 +176,15 @@ export default function InterviewResult({ responses, setResponses }) {
 
       {/* Improvements */}
 
-      <div className="rounded-xl bg-zinc-800 border border-yellow-500/30 p-6">
+      <div className="rounded-xl border border-yellow-500/30 bg-zinc-800 p-6">
         <div className="flex items-center gap-2">
           <TrendingUp className="text-yellow-400" size={20} />
 
-          <h3 className="font-semibold text-lg">Needs Improvement</h3>
+          <h3 className="text-lg font-semibold">Needs Improvement</h3>
         </div>
 
         <ul className="mt-4 space-y-3">
-          {evaluation.improvements.map((item, index) => (
+          {result.improvements.map((item, index) => (
             <li key={index} className="text-sm text-zinc-300">
               • {item}
             </li>
@@ -170,41 +207,29 @@ export default function InterviewResult({ responses, setResponses }) {
               },
             }))
           }
-          className="flex items-center justify-center gap-2 rounded-xl bg-violet-600 py-3 font-semibold hover:bg-violet-700 transition"
+          className="flex items-center justify-center gap-2 rounded-xl bg-violet-600 py-3 font-semibold transition hover:bg-violet-700"
         >
           <Eye size={18} />
-          Review your Answers
+          {fromHistory ? "Review Answers" : "Review your Answers"}
         </button>
 
-        
-
-        <button
-          onClick={() =>
-            setResponses((prev) => ({
-              ...prev,
-
-              interview: {
-                started: false,
-                difficulty: "medium",
-                duration: 10,
-                totalQuestions: 5,
-                questions: [],
-                currentQuestion: 0,
-                answers: [],
-                currentAnswer: "",
-                showResult: false,
-                showReview: false,
-                evaluation: null,
-                evaluating: false,
-                timeLeft: 600,
-              },
-            }))
-          }
-          className="flex items-center gap-2 rounded-xl bg-violet-600 px-6 py-3 font-semibold hover:bg-violet-700 transition"
-        >
-          <RotateCcw size={18} />
-          Restart Interview
-        </button>
+        {!fromHistory ? (
+          <button
+            onClick={restartInterview}
+            className="flex items-center justify-center gap-2 rounded-xl bg-violet-600 py-3 font-semibold transition hover:bg-violet-700"
+          >
+            <RotateCcw size={18} />
+            Restart Interview
+          </button>
+        ) : (
+          <button
+            onClick={backToHistory}
+            className="flex items-center justify-center gap-2 rounded-xl bg-zinc-700 py-3 font-semibold transition hover:bg-zinc-600"
+          >
+            <ArrowLeft size={18} />
+            Back to History
+          </button>
+        )}
       </div>
     </div>
   );

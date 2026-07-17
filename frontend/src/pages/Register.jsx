@@ -17,7 +17,11 @@ const Register = () => {
     e.preventDefault();
 
     try{
-      await axios.post("/api/v1/auth/register" , {username , password , email});
+      await axios.post("http://localhost:8080/api/v1/auth/register", {
+        username,
+        password,
+        email,
+      });
       alert("User registered successfully");
       navigate("/login");
     }catch(err)

@@ -85,17 +85,17 @@ export default function InterviewSession({problem , responses , setResponses}) {
 
 
     const data = await evaluateInterviewAPI({
+      title: problem.title,
 
-        title:problem.title,
+      statement: problem.statement,
 
-        statement:problem.statement,
+      difficulty: interview.difficulty,
 
-        difficulty:interview.difficulty,
+      duration: interview.duration,
 
-        questions:interview.questions,
+      questions: interview.questions,
 
-        answers:updatedAnswers
-
+      answers: updatedAnswers,
     });
 
     console.log(data);

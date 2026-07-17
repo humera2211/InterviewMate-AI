@@ -28,9 +28,23 @@ export default function InterviewPanel({ problem, responses, setResponses }) {
 
   if (interview.showResult && !interview.showReview) {
     return (
-      <InterviewResult responses={responses} setResponses={setResponses} />
+      <InterviewResult
+        responses={responses}
+        setResponses={setResponses}
+        evaluation={responses.interview.historyReport.evaluation}
+        fromHistory={true}
+      />
     );
   }
 
-  return <InterviewReview responses={responses} setResponses={setResponses} />;
+  return (
+    <InterviewReview
+      responses={responses}
+      setResponses={setResponses}
+      review={responses.interview.historyReport.evaluation.review}
+      questions={responses.interview.historyReport.questions}
+      answers={responses.interview.historyReport.answers}
+      fromHistory={true}
+    />
+  );
 }

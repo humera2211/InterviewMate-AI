@@ -8,6 +8,7 @@ import ExplainPanel from "../components/panels/ExplainPanel";
 import HintPanel from "../components/panels/HintPanel";
 import ApproachPanel from "../components/panels/ApproachPanel";
 import InterviewPanel from "../components/panels/InterviewPanel";
+import HistoryPanel from "../components/panels/HistoryPanel";
 
 export default function Dashboard() {
   const { problem, loading, error } = useProblemData();
@@ -56,6 +57,8 @@ export default function Dashboard() {
       evaluating: false,
 
       showReview: false,
+
+      historyReport: null,
     },
   });
   const [loadingAI, setLoadingAI] = useState(false);
@@ -102,6 +105,10 @@ export default function Dashboard() {
           responses={responses}
           setResponses={setResponses}
         />
+      )}
+
+      {activeTab === "history" && (
+        <HistoryPanel responses={responses} setResponses={setResponses} />
       )}
     </div>
   );

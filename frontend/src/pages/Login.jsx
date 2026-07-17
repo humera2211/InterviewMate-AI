@@ -14,14 +14,21 @@ const Login = () => {
 
     try{
     //check password from DB*
-    const {data}=await axios.post("/api/v1/auth/login", {email , password});
+    const { data } = await axios.post(
+      "http://localhost:8080/api/v1/auth/login",
+      { email, password },
+    );
     console.log(data);
     //assing token as cookie*
     if(data?.token)
     {
-      localStorage.setItem("authToken",true);
+      localStorage.setItem("authToken",data.token);
+      
       alert("Login Successful");
-      navigate("/");
+      console.log("Token : ", localStorage.getItem("authToken"));
+      console.log("Before navigate..");
+      navigate("/dashboard");
+      console.log("After navigate..");
     }
     }catch(err)
     {

@@ -1,4 +1,4 @@
-import { BookOpen, Lightbulb, Rocket, Mic } from "lucide-react";
+import { BookOpen, Lightbulb, Rocket, Mic , History } from "lucide-react";
 
 const tabs = [
   {
@@ -20,6 +20,11 @@ const tabs = [
     id: "interview",
     label: "Interview",
     icon: Mic,
+  },
+  {
+    id: "history",
+    label: "History",
+    icon: History,
   },
 ];
 

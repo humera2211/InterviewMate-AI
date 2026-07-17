@@ -2,6 +2,10 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const InterviewHistory = require("../models/interviewHistoryModel");
+const ErrorResponse =require("../utils/errorResponse");
+const crypto = require("crypto");
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -96,7 +100,7 @@ Do not explain anything.
       .trim();
 
       const questions = JSON.parse(cleaned);
-      const sessionId = crypto.randomUUID();
+      const sessionId = crypto.randomUUID();         //*future mai use kr lena 
 
       return res.status(200).json({
         success: true,
@@ -117,14 +121,19 @@ Do not explain anything.
 
 module.exports.evaluateInterview = async (req, res, next) => {
   try {
-    const { title, statement, difficulty, questions, answers } = req.body;
+    const { title, statement, difficulty,duration , questions, answers } = req.body;
 
     // Validation
     if (!title || !statement || !difficulty || !questions || !answers) {
       return next(new ErrorResponse("Missing required fields", 400));
     }
 
-    if (!questions.length || !answers.length) {
+    if (
+      !Array.isArray(questions) ||
+      !Array.isArray(answers) ||
+      questions.length === 0 ||
+      answers.length === 0
+    ) {
       return next(new ErrorResponse("Interview data is empty.", 400));
     }
 
@@ -191,6 +200,12 @@ should NEVER receive a high score.
 5. Give high scores ONLY when the answer is technically correct and well explained.
 
 6. Difficulty matters.
+
+7.Never increase the score because the candidate attempted the question.
+
+8.Attempt alone should not receive marks.
+
+9.Only technical correctness should affect the score.
 
 Basic:
 Small mistakes are acceptable.
@@ -309,6 +324,27 @@ Do not use \`\`\`.
       } catch (err) {
         return next(new ErrorResponse("AI returned an invalid response.", 500));
       }
+
+      //Save history to DB
+      await InterviewHistory.create({
+        user: req.user._id,
+
+        problemTitle: title,
+
+        problemStatement: statement,
+
+        difficulty,
+
+        duration,
+
+        overallScore: evaluation.overallScore,
+
+        questions,
+
+        answers,
+
+        evaluation,
+      });
 
     // Return Result
     return res.status(200).json({
