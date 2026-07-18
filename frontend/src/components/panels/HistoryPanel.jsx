@@ -9,19 +9,18 @@ export default function HistoryPanel({
   setResponses,
   history,
   setHistory,
-  historyLoaded,
-  setHistoryLoaded,
 }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadHistory() {
       try {
+
+        setLoading(true);
         const data = await getHistoryAPI();
 
         setHistory(data.history);
 
-        setHistoryLoaded(true);
       } catch (err) {
         console.log(err);
       } finally {
@@ -29,12 +28,8 @@ export default function HistoryPanel({
       }
     }
 
-    if (!historyLoaded) {
-      loadHistory();
-    } else {
-      setLoading(false);
-    }
-  }, [historyLoaded, setHistory, setHistoryLoaded]);
+    loadHistory();
+  }, [setHistory]);
 
   if (loading) {
     return (

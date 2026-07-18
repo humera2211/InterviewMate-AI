@@ -60,7 +60,6 @@ export default function Dashboard() {
   const [loadingAI, setLoadingAI] = useState(false);
   const [activeTab, setActiveTab] = useState("explain");
   const [history, setHistory] = useState([]);
-  const [historyLoaded, setHistoryLoaded] = useState(false);
 
   if (loading) {
     //loading hook
@@ -109,8 +108,6 @@ export default function Dashboard() {
           setResponses={setResponses}
           history={history}
           setHistory={setHistory}
-          historyLoaded={historyLoaded}
-          setHistoryLoaded={setHistoryLoaded}
         />
       )}
     </div>

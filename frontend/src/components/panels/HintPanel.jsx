@@ -28,7 +28,7 @@ export default function HintPanel({ problem, responses, setResponses }) {
           ...prev,
           hint: {
             level: 1,
-            hints: data.hints,
+            hints: data,
             error: null,
           },
         }));
@@ -70,7 +70,7 @@ export default function HintPanel({ problem, responses, setResponses }) {
         ...prev,
         hint: {
           level: 1,
-          hints: data.hints,
+          hints: data,
           error: null,
         },
       }));
