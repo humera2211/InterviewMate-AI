@@ -1,6 +1,6 @@
 import { Clock, Calendar, Trophy } from "lucide-react";
-import { getInterviewAPI } from "../services/historyService";
-import { deleteInterviewAPI } from "../services/historyService";
+import { getInterviewAPI } from "../../../services/historyService";
+import { deleteInterviewAPI } from "../../../services/historyService";
 
 export default function HistoryCard({ interview, responses, setResponses, setHistory }) {
   const scoreColor =

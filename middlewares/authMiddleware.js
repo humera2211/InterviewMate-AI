@@ -16,7 +16,7 @@ module.exports.protect = async (req, res, next) => {
     }
 
     // No token
-    if (!token) {
+    if (!token || token === "null" || token === "undefined") {
       return next(new errorResponse("Not authorized. Please login.", 401));
     }
 

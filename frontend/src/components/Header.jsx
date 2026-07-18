@@ -1,10 +1,38 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, User, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Header({ problem }) {
   const difficultyColor = {
     Easy: "text-green-400",
     Medium: "text-yellow-400",
     Hard: "text-red-400",
+  };
+
+  const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const token = localStorage.getItem("authToken");
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const initials = user?.username
+    ?.split(" ")
+    .map((word) => word[0])
+    .join("")
+    .toUpperCase();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:8080/api/v1/auth/logout");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("user");
+
+      navigate("/");
+    }
   };
 
   return (
@@ -21,13 +49,51 @@ export default function Header({ problem }) {
           </h1>
         </div>
 
-        {/* Platform badge pushed to end on same row when space allows */}
-        <div className="ml-auto rounded-lg bg-zinc-700 px-2.5 py-1 text-xs text-zinc-300 shrink-0">
-          {problem?.platform}
-        </div>
+        <div className="ml-auto flex items-center gap-3">
+          {token ? (
+            <div className="relative">
+              <button
+                onClick={() => setShowMenu(!showMenu)}
+                className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-600 text-sm font-semibold text-white hover:bg-cyan-700"
+              >
+                {initials || <User size={13} />}
+              </button>
 
-        {/*login logout signin signup */}
-        //to be completed...
+              {showMenu && (
+                <div className="absolute right-0 mt-2 w-56 rounded-xl border border-zinc-700 bg-[#2b2d35] shadow-xl z-50">
+                  <div className="border-b border-zinc-700 px-4 py-3">
+                    <p className="font-light text-white">{user?.username}</p>
+                    <p className="text-xs text-zinc-400">{user?.email}</p>
+                  </div>
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full px-4 py-3 text-left text-red-400 hover:bg-zinc-800 transition flex flex-row"
+                  >
+                    <LogOut size={15} />
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <button
+                onClick={() => navigate("/login")}
+                className="rounded-lg border border-cyan-500 px-3 py-1 text-xs text-cyan-400 hover:bg-cyan-500 hover:text-white transition"
+              >
+                Login
+              </button>
+
+              <button
+                onClick={() => navigate("/register")}
+                className="rounded-lg bg-cyan-600 px-3 py-1 text-xs text-white hover:bg-cyan-700 transition"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Divider - full width, separates identity from problem info */}
         <div className="w-full h-px bg-zinc-700 my-1" />
@@ -38,11 +104,18 @@ export default function Header({ problem }) {
             {problem?.title}
           </p>
 
-          <div
-            className={`flex items-center gap-1.5 text-xs shrink-0 ${difficultyColor[problem?.difficulty]}`}
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-current" />
-            {problem?.difficulty}
+          <div className="flex flex-col justify-center items-center">
+            <div
+              className={`gap-1.5 text-xs shrink-0 ${difficultyColor[problem?.difficulty]}`}
+            >
+              {problem?.difficulty}
+            </div>
+
+             {/* Platform
+            <div className="rounded-lg bg-zinc-700 px-2.5 py-1 text-xs text-zinc-300">
+              {problem?.platform}
+            </div> */}
+            
           </div>
         </div>
       </div>

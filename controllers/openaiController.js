@@ -91,6 +91,7 @@ Respond in the following structure:
      optimal solution (e.g., "What if the array is sorted?", "What if we 
      can't use extra space?", "What if this needs to run on streaming data?")
    - Briefly note how the approach would change for each
+   -datatype is array of strings
 
 8. INTERVIEW FREQUENCY / CONTEXT
    - How commonly is this type of problem asked (Low / Medium / High frequency)

@@ -22,6 +22,7 @@ export default function Dashboard() {
     hint: {
       level: 0,
       hints: [],
+      error:null,
     },
 
     interview: {
@@ -71,7 +72,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="w-125 min-h-screen bg-zinc-900 text-white p-5 flex flex-col">
+    <div className="w-full min-h-screen bg-zinc-900 text-white p-5 flex flex-col">
       {/* Header  */}
       <Header problem={problem} />
 

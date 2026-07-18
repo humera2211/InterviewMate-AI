@@ -31,7 +31,7 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
       }));
     } catch (err) {
       console.error(err);
-
+      alert(err.message);
       setResponses((prev) => ({
         ...prev,
         explain: {
@@ -47,7 +47,6 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
 
   return (
     <div className="mt-5 flex flex-col flex-1 min-h-0">
-      
       {/* Explain Button */}
       <button
         disabled={loading}
@@ -60,9 +59,17 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
         {loading ? "Generating..." : "Explain Problem"}
       </button>
 
+      {/* Error */}
+      {!loading && responses.explain.error && (
+        <div className="rounded-lg border border-amber-500 bg-amber-500/10 p-4">
+          <p className="text-amber-300 font-medium">
+            {responses.explain.error}
+          </p>
+        </div>
+      )}
+
       {/* Response Card */}
       <div className="mt-5 flex-1 rounded-xl border border-zinc-700 bg-zinc-800 p-5 min-h-0 flex flex-col">
-       
         {/* Card Body */}
         <div className="mt-4 flex-1 overflow-y-auto">
           {/* Loading */}

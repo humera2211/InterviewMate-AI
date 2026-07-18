@@ -7,8 +7,13 @@ const sendToken=(user,statusCode,res)=>{
     //token lo custom schema method bnaya tha jo user model mai usse
     const token=user.getSignedToken(res);
     res.status(statusCode).json({
-        success:true,
-        token
+      success: true,
+      token,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+      },
     });
 };
 
@@ -72,7 +77,6 @@ module.exports.loginController=async(req,res,next)=>{
 };
 
 module.exports.logoutController=async(req,res)=>{
-    res.clearCookie('refreshToken');
     return res.status(200).json({
         success:true,
         message:"Logout successful"

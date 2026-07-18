@@ -23,7 +23,7 @@ const Login = () => {
     if(data?.token)
     {
       localStorage.setItem("authToken",data.token);
-      
+      localStorage.setItem("user", JSON.stringify(data.user));
       alert("Login Successful");
       console.log("Token : ", localStorage.getItem("authToken"));
       console.log("Before navigate..");

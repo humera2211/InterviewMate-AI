@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getHistoryAPI } from "../../services/historyService";
-import HistoryCard from "../HistoryCard";
+import HistoryCard from "../panels/history/HistoryCard";
 import InterviewResult from "./interview/InterviewResult";
 import InterviewReview from "./interview/InterviewReview";
 

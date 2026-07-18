@@ -4,6 +4,10 @@ export async function askAI(problem, action) {
   try {
     const token = localStorage.getItem("authToken");
 
+    if (!token) {
+      throw new Error("Please login to use InterviewMate AI.");
+    }
+
     const response = await axios.post(
       "http://localhost:8080/api/v1/openai/problem",
       {
@@ -29,6 +33,8 @@ export async function askAI(problem, action) {
 
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || "Something went wrong");
+     console.log("Message:", error.message);
+
+     throw error;
   }
 }

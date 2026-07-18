@@ -29,6 +29,7 @@ export default function HintPanel({ problem, responses, setResponses }) {
           hint: {
             level: 1,
             hints: data.hints,
+            error: null,
           },
         }));
       }
@@ -45,14 +46,13 @@ export default function HintPanel({ problem, responses, setResponses }) {
       }
     } catch (err) {
       console.error("Hint Error:", err);
-
+      alert(err.message);
       setResponses((prev) => ({
         ...prev,
         hint: {
           level: 0,
-          hints: [
-            `${err.message || "AI is busy to generate hints. Please try again."}`,
-          ],
+          hints: [],
+          error: err.message,
         },
       }));
     } finally {
@@ -71,10 +71,12 @@ export default function HintPanel({ problem, responses, setResponses }) {
         hint: {
           level: 1,
           hints: data.hints,
+          error: null,
         },
       }));
     } catch (err) {
       console.log(err);
+      alert(err.message);
     } finally {
       setLoading(false);
     }
@@ -82,8 +84,6 @@ export default function HintPanel({ problem, responses, setResponses }) {
 
   return (
     <div className="mt-5 flex flex-col flex-1 min-h-0">
-      
-
       {/* Button */}
       <button
         onClick={handleHint}
@@ -98,36 +98,41 @@ export default function HintPanel({ problem, responses, setResponses }) {
         {loading ? "Generating..." : buttonText}
       </button>
 
+      {/* Body */}
+      <div className="mt-4 flex-1 overflow-y-auto">
+        {responses.hint.error && (
+          <div className="mb-4 rounded-lg border border-amber-500 bg-amber-500/10 p-4">
+            <p className="text-amber-300 font-medium">{responses.hint.error}</p>
+          </div>
+        )}
 
-        {/* Body */}
-        <div className="mt-4 flex-1 overflow-y-auto">
-          {responses.hint.hints.length === 0 ? (
-            <div className="h-full flex items-center justify-center">
-              <div className="text-center">
-                <p className="mt-3 text-sm text-zinc-400 leading-7">
-                  Generate your first hint to start thinking about the problem.
-                </p>
-              </div>
+        {!responses.hint.error && responses.hint.hints.length === 0 ? (
+          <div className="h-full flex items-center justify-center">
+            <div className="text-center">
+              <p className="mt-3 text-sm text-zinc-400 leading-7">
+                Generate your first hint to start thinking about the problem.
+              </p>
             </div>
-          ) : (
-            <div className="space-y-4">
-              {responses.hint.hints
-                .slice(0, responses.hint.level)
-                .map((hint, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border border-amber-500/20 bg-zinc-900 p-4"
-                  >
-                    <h4 className="mb-2 font-semibold text-amber-400">
-                      Hint {index + 1}
-                    </h4>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {responses.hint.hints
+              .slice(0, responses.hint.level)
+              .map((hint, index) => (
+                <div
+                  key={index}
+                  className="rounded-lg border border-amber-500/20 bg-zinc-900 p-4"
+                >
+                  <h4 className="mb-2 font-semibold text-amber-400">
+                    Hint {index + 1}
+                  </h4>
 
-                    <p className="text-sm leading-7 text-zinc-300">{hint}</p>
-                  </div>
-                ))}
-            </div>
-          )}
-        </div>
+                  <p className="text-sm leading-7 text-zinc-300">{hint}</p>
+                </div>
+              ))}
+          </div>
+        )}
       </div>
+    </div>
   );
 }
