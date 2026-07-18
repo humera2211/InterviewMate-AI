@@ -30,6 +30,14 @@ app.use('/api/v1/auth' , authRoutes);
 app.use('/api/v1/openai' , openAIRoutes);
 app.use('/api/v1/interview' , interviewRoutes); 
 
+// Health Check
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "InterviewMate AI Backend is running",
+  });
+});
+
 
 //ERROR HANDLING Middleware (routes ke baad lgta h)
 app.use(errorHandler);      
