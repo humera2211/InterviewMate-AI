@@ -4,7 +4,6 @@ import { Routes , Route , Navigate } from 'react-router-dom'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
-import Feedback from './pages/Feedback'
 function App() {
   
   return (
@@ -26,8 +25,6 @@ function App() {
             )
           }
         />
-
-        <Route path="/feedback" element={<Feedback />} />
 
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

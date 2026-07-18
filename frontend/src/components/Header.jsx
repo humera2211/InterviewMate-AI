@@ -26,6 +26,9 @@ export default function Header({ problem }) {
           {problem?.platform}
         </div>
 
+        {/*login logout signin signup */}
+        //to be completed...
+
         {/* Divider - full width, separates identity from problem info */}
         <div className="w-full h-px bg-zinc-700 my-1" />
 

@@ -19,6 +19,14 @@ export async function askAI(problem, action) {
       },
     );
 
+    if (action === "explain") {
+      return response.data.explain;
+    }
+
+    if (action === "hint") {
+      return response.data.hints;
+    }
+
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Something went wrong");

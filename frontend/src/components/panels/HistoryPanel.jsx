@@ -4,8 +4,14 @@ import HistoryCard from "../HistoryCard";
 import InterviewResult from "./interview/InterviewResult";
 import InterviewReview from "./interview/InterviewReview";
 
-export default function HistoryPanel({responses , setResponses}) {
-  const [history, setHistory] = useState([]);
+export default function HistoryPanel({
+  responses,
+  setResponses,
+  history,
+  setHistory,
+  historyLoaded,
+  setHistoryLoaded,
+}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,6 +20,8 @@ export default function HistoryPanel({responses , setResponses}) {
         const data = await getHistoryAPI();
 
         setHistory(data.history);
+
+        setHistoryLoaded(true);
       } catch (err) {
         console.log(err);
       } finally {
@@ -21,8 +29,12 @@ export default function HistoryPanel({responses , setResponses}) {
       }
     }
 
-    loadHistory();
-  }, []);
+    if (!historyLoaded) {
+      loadHistory();
+    } else {
+      setLoading(false);
+    }
+  }, [historyLoaded, setHistory, setHistoryLoaded]);
 
   if (loading) {
     return (

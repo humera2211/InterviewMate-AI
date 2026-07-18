@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { askAI } from "../../services/aiService";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { BookOpen, RotateCw } from "lucide-react";
+import CategoryCard from "./explain/CategoryCard";
+import PrerequisitesCard from "./explain/PrerequisitesCard";
+import ApproachCard from "./explain/ApproachCard";
+import ComplexityCard from "./explain/ComplexityCard";
+import FollowUpCard from "./explain/FollowUpCard";
+import InterviewContextCard from "./explain/InterviewContextCard";
+import SimilarQuestionsCard from "./explain/SimilarQuestionCard";
 
 export default function ExplainPanel({ problem, responses, setResponses }) {
   const [loading, setLoading] = useState(false);
+  const content = responses.explain.content;
 
   async function handleExplain() {
     try {
@@ -13,14 +19,14 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
 
       const data = await askAI(problem, "explain");
 
-      console.log(data);
-      console.log(data.response);
+      console.log(data); //json object milega
 
       setResponses((prev) => ({
         ...prev,
         explain: {
-          content: data.response,
+          content: data,
           generatedAt: new Date(),
+          error: null,
         },
       }));
     } catch (err) {
@@ -29,29 +35,19 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
       setResponses((prev) => ({
         ...prev,
         explain: {
-          content: ` ${err.message}`,
+          content: null,
           generatedAt: new Date(),
+          error: err.message,
         },
       }));
-    }finally{
+    } finally {
       setLoading(false);
     }
   }
 
   return (
     <div className="mt-5 flex flex-col flex-1 min-h-0">
-      {/* Heading */}
-      <div className="mb-4">
-        <div className="flex items-center gap-2">
-          <BookOpen className="text-cyan-400" size={22} />
-          <h2 className="text-xl font-semibold">Explain Problem</h2>
-        </div>
-
-        <p className="mt-2 text-sm text-zinc-400">
-          what the problem is asking before thinking about the solution.
-        </p>
-      </div>
-
+      
       {/* Explain Button */}
       <button
         disabled={loading}
@@ -66,30 +62,7 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
 
       {/* Response Card */}
       <div className="mt-5 flex-1 rounded-xl border border-zinc-700 bg-zinc-800 p-5 min-h-0 flex flex-col">
-        {/* Card Header */}
-        <div className="flex items-center justify-between border-b border-zinc-700 pb-3">
-          <div className="flex items-center gap-2">
-            <BookOpen size={18} className="text-cyan-400" />
-            <h3 className="font-semibold">AI Explanation</h3>
-          </div>
-
-          {/* Refresh Button */}
-          {responses.explain.content && (
-            <button
-              onClick={handleExplain}
-              disabled={loading}
-              className={`transition ${
-                loading
-                  ? "text-zinc-600 cursor-not-allowed"
-                  : "text-zinc-400 hover:text-cyan-400"
-              }`}
-              title="Regenerate"
-            >
-              <RotateCw size={18} className={loading ? "animate-spin" : ""} />
-            </button>
-          )}
-        </div>
-
+       
         {/* Card Body */}
         <div className="mt-4 flex-1 overflow-y-auto">
           {/* Loading */}
@@ -97,12 +70,34 @@ export default function ExplainPanel({ problem, responses, setResponses }) {
 
           {/* Response */}
           {!loading && responses.explain.content && (
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              className="text-sm leading-7"
-            >
-              {responses.explain.content}
-            </ReactMarkdown>
+            <div className="space-y-5">
+              <CategoryCard category={content.category} />
+
+              <PrerequisitesCard prerequisites={content.prerequisites} />
+
+              <ApproachCard
+                title="Brute Force"
+                approach={content.brute_force}
+              />
+
+              <ApproachCard
+                title="Better Approach"
+                approach={content.better_approach}
+              />
+
+              <ApproachCard
+                title="Optimal Approach"
+                approach={content.optimal_approach}
+              />
+
+              <ComplexityCard text={content.complexity_reduction_path} />
+
+              <FollowUpCard questions={content.follow_up_questions} />
+
+              <InterviewContextCard context={content.interview_context} />
+
+              <SimilarQuestionsCard questions={content.similar_questions} />
+            </div>
           )}
 
           {/* Empty State */}

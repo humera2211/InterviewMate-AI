@@ -6,7 +6,6 @@ import Header from "../components/Header";
 import NavigationTabs from "../components/NavigationTabs";
 import ExplainPanel from "../components/panels/ExplainPanel";
 import HintPanel from "../components/panels/HintPanel";
-import ApproachPanel from "../components/panels/ApproachPanel";
 import InterviewPanel from "../components/panels/InterviewPanel";
 import HistoryPanel from "../components/panels/HistoryPanel";
 
@@ -15,18 +14,14 @@ export default function Dashboard() {
 
   const [responses, setResponses] = useState({
     explain: {
-      content: "",
+      content: null,
       generatedAt: null,
+      error:null,
     },
 
     hint: {
       level: 0,
       hints: [],
-    },
-
-    approach: {
-      content: "",
-      generatedAt: null,
     },
 
     interview: {
@@ -63,6 +58,8 @@ export default function Dashboard() {
   });
   const [loadingAI, setLoadingAI] = useState(false);
   const [activeTab, setActiveTab] = useState("explain");
+  const [history, setHistory] = useState([]);
+  const [historyLoaded, setHistoryLoaded] = useState(false);
 
   if (loading) {
     //loading hook
@@ -97,8 +94,6 @@ export default function Dashboard() {
         />
       )}
 
-      {activeTab === "approach" && <ApproachPanel />}
-
       {activeTab === "interview" && (
         <InterviewPanel
           problem={problem}
@@ -108,7 +103,14 @@ export default function Dashboard() {
       )}
 
       {activeTab === "history" && (
-        <HistoryPanel responses={responses} setResponses={setResponses} />
+        <HistoryPanel
+          responses={responses}
+          setResponses={setResponses}
+          history={history}
+          setHistory={setHistory}
+          historyLoaded={historyLoaded}
+          setHistoryLoaded={setHistoryLoaded}
+        />
       )}
     </div>
   );
