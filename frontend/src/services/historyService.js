@@ -5,7 +5,7 @@ export async function getHistoryAPI() {
     const token = localStorage.getItem("authToken");
 
     const response = await axios.get(
-      "http://localhost:8080/api/v1/interview/history",
+      `${import.meta.env.VITE_API_URL}/api/v1/interview/history`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export async function getInterviewAPI(id) {
     const token = localStorage.getItem("authToken");
 
     const response = await axios.get(
-      `http://localhost:8080/api/v1/interview/history/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/interview/history/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -45,7 +45,7 @@ export async function deleteInterviewAPI(id) {
     const token = localStorage.getItem("authToken");
 
     const response = await axios.delete(
-      `http://localhost:8080/api/v1/interview/history/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/interview/history/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

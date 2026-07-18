@@ -15,7 +15,7 @@ const Login = () => {
     try{
     //check password from DB*
     const { data } = await axios.post(
-      "http://localhost:8080/api/v1/auth/login",
+      `${import.meta.env.VITE_API_URL}/api/v1/auth/login`,
       { email, password },
     );
     console.log(data);

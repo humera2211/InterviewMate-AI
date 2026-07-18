@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 
 dotenv.config();
-const ErrorResponse=require("../utils/errorResponse")
+const ErrorResponse = require("../utils/errorResponse");
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -9,14 +9,13 @@ const model = genAI.getGenerativeModel({
   model: "gemini-2.5-flash",
 });
 
-
 //-------------------For extension----------------------
-module.exports.problemController = async (req, res , next) => {
+module.exports.problemController = async (req, res, next) => {
   try {
     const { title, difficulty, statement, action } = req.body;
 
     if (!title || !statement || !action) {
-       return next(new ErrorResponse("Missing required fields", 400));
+      return next(new ErrorResponse("Missing required fields", 400));
     }
 
     let prompt = "";
@@ -134,7 +133,7 @@ LIMIT : for each topic give precise response in 3-4 lines.
 `;
         break;
       case "hint":
-         prompt = `
+        prompt = `
 
 You are an expert DSA mentor, inspired by the teaching style of Striver (takeUforward) and CodeStoryWithMIK. Their style: they don't just name a technique — they make the student FEEL why the brute force is slow, then guide them to the realization of a better idea, step by step, like a human thinking out loud.
 Problem Title:
@@ -209,34 +208,47 @@ Return ONLY in this format:
 
 `;
         break;
-      
+
       default:
-         return next(new ErrorResponse("Invalid action", 400));
+        return next(new ErrorResponse("Invalid action", 400));
     }
 
     let response;
 
-    try{
+    try {
+      const result = await model.generateContent(prompt);
+      response = result.response.text();
+    } catch (err) {
+      console.log("Gemini Error:", err);
+      if (
+        err.status === 503 ||
+        err.message?.includes("503") ||
+        err.message?.includes("Service Unavailable")
+      ) {
+        return next(
+          new ErrorResponse(
+            "AI model is currently busy. Please try again in a few seconds.",
+            503,
+          ),
+        );
+      }
 
-    const result = await model.generateContent(prompt);
-    response = result.response.text();
-    }catch(err)
-    {
-      console.log("Gemini Error:" , err);
-       if (
-         err.status === 503 ||
-         err.message?.includes("503") ||
-         err.message?.includes("Service Unavailable")
-       ) {
-         throw new ErrorResponse(
-           "AI model is currently busy. Please try again in a few seconds.",
-           503,
-         );
-       }
+      if (
+        err.status === 429 ||
+        err.message?.includes("QuotaFailure") ||
+        err.message?.includes("RESOURCE_EXHAUSTED") ||
+        err.message?.includes("429")
+      ) {
+        return next(
+          new ErrorResponse(
+            "Gemini API quota exceeded. Please try again after a minute.",
+            429,
+          ),
+        );
+      }
 
-       throw new ErrorResponse("Internal Server Error", 500);
+      return next(new ErrorResponse("Internal Server Error", 500));
     }
-
 
     if (action === "hint") {
       const hints = response
@@ -266,9 +278,11 @@ Return ONLY in this format:
           explain: parsedResponse,
         });
       } catch (err) {
-         console.error("Invalid JSON from Gemini:");
-         console.error(response);
-        throw new ErrorResponse("AI returned an invalid JSON response.", 500);
+        console.error("Invalid JSON from Gemini:");
+        console.error(response);
+        return next(
+          new ErrorResponse("AI returned an invalid JSON response.", 500),
+        );
       }
     }
 
@@ -279,6 +293,6 @@ Return ONLY in this format:
   } catch (err) {
     console.log(err);
 
-     next(err);
+    next(err);
   }
 };

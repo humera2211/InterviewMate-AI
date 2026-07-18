@@ -5,7 +5,7 @@ export async function startInterviewAPI(interviewData) {
     const token = localStorage.getItem("authToken");
 
     const response = await axios.post(
-      "http://localhost:8080/api/v1/interview/start",
+      `${import.meta.env.VITE_API_URL}/api/v1/interview/start`,
       interviewData,
       {
         headers: {
@@ -27,7 +27,7 @@ export async function evaluateInterviewAPI(interviewData) {
     const token = localStorage.getItem("authToken");
 
     const response = await axios.post(
-      "http://localhost:8080/api/v1/interview/evaluate",
+      `${import.meta.env.VITE_API_URL}/api/v1/interview/evaluate`,
       interviewData,
       {
         headers: {

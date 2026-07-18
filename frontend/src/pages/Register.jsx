@@ -17,7 +17,7 @@ const Register = () => {
     e.preventDefault();
 
     try{
-      await axios.post("http://localhost:8080/api/v1/auth/register", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/register`, {
         username,
         password,
         email,

@@ -11,21 +11,22 @@ export default defineManifest({
     default_title: "InterviewMate AI",
   },
 
-  permissions: ["storage", "activeTab", "tabs", "scripting" , "sidePanel" , ],
+  permissions: ["storage", "activeTab", "tabs", "scripting", "sidePanel"],
 
-  side_panel:{
-    default_path:"index.html"
-  } ,
+  side_panel: {
+    default_path: "index.html",
+  },
 
-  background:{
+  background: {
     service_worker: "src/background.js",
-    type:"module" ,
-  } ,
+    type: "module",
+  },
 
   host_permissions: [
     "https://leetcode.com/*",
     "https://www.geeksforgeeks.org/*",
     "http://localhost:8080/*",
+    "https://interviewmate-ai-backend.onrender.com/*",
   ],
 
   content_scripts: [

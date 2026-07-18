@@ -24,7 +24,7 @@ export default function Header({ problem }) {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8080/api/v1/auth/logout");
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/auth/logout`);
     } catch (err) {
       console.log(err);
     } finally {
