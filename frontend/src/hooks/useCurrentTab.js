@@ -19,7 +19,25 @@ export default function useCurrentTab() {
     }
 
     fetchTab();
+
+     //SPA navigation detect karne ke liye listener
+    const handleUpdate = (tabId, changeInfo, updatedTab) => {
+      if (
+        updatedTab.active &&
+        (changeInfo.url || changeInfo.status === "complete")
+      ) {
+        setTab({ ...updatedTab }); // naya reference → dependent effects re-run honge
+      }
+    };
+
+    chrome.tabs.onUpdated.addListener(handleUpdate);
+
+    // cleanup
+    return () => {
+      chrome.tabs.onUpdated.removeListener(handleUpdate);
+    };
   }, []);
+
 
   return {
     tab,
