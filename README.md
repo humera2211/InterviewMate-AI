@@ -1,282 +1,459 @@
-# 🚀 InterviewMate AI
+# InterviewMate AI
 
-An AI-powered Chrome Extension that enhances your **LeetCode DSA and interview preparation** with real-time AI assistance. InterviewMate AI provides problem explanations, progressive hints, mock interviews, interview evaluation, and history tracking—all directly from a Chrome Side Panel.
+InterviewMate AI provides **AI-powered problem explanations**, **progressive hints**, **solution approaches**, **mock interviews**, **interview evaluation**, and **interview history** — all through a **Chrome Side Panel** without leaving your coding environment.
 
-Built with **React, Node.js, Express.js, MongoDB, Google Gemini AI, and Chrome Extension Manifest V3**.
-
----
-
-##  Features
-
-- 🤖 **AI Explain** – Get a detailed explanation of the current problem.
-- 💡 **Progressive Hints** – Solve problems with guided hints instead of directly viewing the solution.
-- 🎤 **Mock Interview** – Practice AI-generated interview questions based on the current problem.
-- 📊 **Interview Evaluation** – Receive AI feedback on your responses.
-- 📚 **Interview History** – View, review, and delete previous interview sessions.
-- 🔐 **Secure Authentication** – JWT-based login and registration.
-- ⚡ **Chrome Side Panel Integration** – Access AI assistance without leaving LeetCode.
-- ☁️ **Cloud Backend** – Powered by MongoDB Atlas and Render.
+**Chrome Extension:** Coming soon on Chrome Web Store  
+**Backend:** Deployed on backend  
+**Repository:** [https://github.com/humera2211/InterviewMate-AI](https://github.com/humera2211/InterviewMate-AI)
 
 ---
 
-## 🛠 Tech Stack
-
-### Frontend
-
-- React
-- Vite
-- Tailwind CSS
-- Chrome Extension (Manifest V3)
-- React Router
-
-### Backend
-
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- JWT Authentication
-- Google Gemini API
-
-### Deployment
-
-- Render
-
----
-
-## 📂 Project Structure
-
-```
-InterviewMateAI/
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── content/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── utils/
-│   ├── manifest.config.js
-│   └── vite.config.js
-│
-├── backend/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   └── server.js
-│
-└── README.md
-```
-
----
-
-#  Installation
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/humera2211/InterviewMateAI.git
-cd InterviewMateAI
-```
-
----
-
-### 2. Install Dependencies
-
-#### Frontend
-
-```bash
-cd frontend
-npm install
-```
-
-#### Backend
-
-Open another terminal:
-
-```bash
-cd backend
-npm install
-```
-
----
-
-### 3. Configure Environment Variables
-
-#### Backend
-
-Create a `.env` file inside the `backend` folder.
-
-```env
-PORT=8080
-MONGODB_URI=<your_mongodb_connection_string>
-JWT_ACCESS_SECRET=<your_jwt_secret>
-GEMINI_API_KEY=<your_gemini_api_key>
-```
-
-#### Frontend
-
-Create a `.env` file inside the `frontend` folder.
-
-```env
-VITE_API_URL=https://interviewmate-ai-backend.onrender.com
-```
-
----
-
-### 4. Run the Backend
-
-```bash
-cd backend
-npm run dev
-```
-
----
-
-### 5. Build the Chrome Extension
-
-```bash
-cd frontend
-npm run build
-```
-
-This generates the `dist` folder.
-
----
-
-### 6. Load the Extension in Chrome
-
-1. Open Chrome.
-
-2. Navigate to
-
-```
-chrome://extensions
-```
-
-3. Enable **Developer Mode**.
-
-4. Click **Load unpacked**.
-
-5. Select the
-
-```
-frontend/dist
-```
-
-folder.
-
-The extension is now ready to use.
-
----
-
-# How It Works
+## Features
 
 ### AI Explain
-
-- Open any LeetCode problem.
-- Launch the InterviewMate AI Side Panel.
-- Click **Explain**.
-- The AI generates a structured explanation including intuition, approach, algorithm, and time/space complexity.
-
----
+Get detailed explanations of coding problems directly in the Chrome Side Panel.
+- Automatic problem detection from LeetCode
+- Context-aware explanations from Google Gemini
+- Formatted markdown responses
 
 ### Progressive Hints
+Receive helpful hints without spoiling the solution.
+- Multi-level hints for problem-solving guidance
+- Encourage independent thinking
+- Build problem-solving skills progressively
 
-- Click **Hint**.
-- Receive hints one at a time to encourage problem-solving instead of revealing the full solution immediately.
-
----
+### Solution Approach
+Get step-by-step approaches to solve problems including:
+- Problem understanding and key observations
+- Algorithmic approach explanation
+- Time and space complexity analysis
+- Implementation strategy
 
 ### Mock Interview
+Practice technical interviews using the current problem.
+- Configurable interview difficulty (Easy, Medium, Hard)
+- Adjustable interview duration
+- AI-generated interview questions
+- Real interview simulation experience
 
-- Click **Interview**.
-- Answer AI-generated interview questions based on the current coding problem.
-- Receive personalized feedback and evaluation.
+### Interview Evaluation
+Get detailed feedback on your interview responses:
+- Response quality assessment
+- Technical understanding evaluation
+- Problem-solving approach analysis
+- Communication effectiveness
+- Improvement suggestions
+- Overall performance score
 
----
-
-### Interview History
-
-- Every completed interview is securely stored in MongoDB.
-- Review previous interviews anytime.
-- Delete interviews whenever required.
-
----
-
-##  Troubleshooting
-
-### Problem data is not detected
-
-- Refresh the LeetCode page.
-- Ensure you are on a valid LeetCode problem URL.
-- Reload the extension after making changes.
-
----
-
-### AI is not responding
-
-- Verify that the backend server is running.
-- Check the Gemini API configuration.
-- Ensure `VITE_API_URL` points to the correct backend.
+### Interview History Summary
+   Users can:
+- View all their interview sessions
+- Access detailed feedback and scores
+- Delete previous sessions
+- Track improvement over time
 
 ---
 
-### Login failed
+### Automatic Problem Sync
+InterviewMate AI automatically detects the coding problem you're working on:
+- Extracts problem title, difficulty, and context
+- Zero manual configuration needed
+- Works seamlessly with LeetCode
+- Syncs problem information automatically
 
-- Make sure the backend server is running.
-- Login again if the JWT token has expired.
+### Chrome Side Panel
+Access all features without tab switching:
+- View problems and write code simultaneously
+- Open Side Panel with one click
+- Responsive design for different screen sizes
+- Persistent session across tabs
+
+---
+**Benefits:**
+- No tab switching
+- Faster learning cycle
+- Immediate feedback
+- Integrated practice
+- Performance tracking
+---
+
+## Tech Stack
+
+### Frontend
+- **React 18** - UI library
+- **Vite** - Frontend build tool & dev server
+- **Tailwind CSS** - Styling and design
+- **React Router** - Client-side routing
+- **React Markdown** - Markdown rendering
+- **Lucide React** - Icon library
+- **Axios** - HTTP client
+
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express.js** - Web framework
+- **REST API** - Client-server communication
+- **JWT** - Token-based authentication
+- **bcrypt** - Password hashing
+
+### Database
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB ODM (Object Data Modeling)
+
+### AI & APIs
+- **Google Gemini API** - AI-powered responses
+
+### Chrome Extension
+- **Chrome Manifest V3** - Extension manifest
+- **Chrome Side Panel API** - Side panel UI
+- **Content Scripts** - Page manipulation
+- **Chrome Messaging** - Inter-script communication
+- **Chrome Storage API** - Local data persistence
+- **Chrome Tabs API** - Tab information access
+- **Chrome Scripting API** - Dynamic script execution
 
 ---
 
-##  Future Improvements
+## Architecture
 
-- Support for GeeksforGeeks
-- Support for Codeforces
-- AI-generated follow-up questions
-- Voice-based mock interviews
-- Personalized learning recommendations
-- Multi-language support
+InterviewMate AI follows a **full-stack Chrome Extension architecture** where the extension frontend (running in Chrome) communicates with a cloud-based backend that handles authentication, database operations, and AI requests.
 
----
-
-## Contributing
-
-Contributions are welcome!
-
-1. Fork the repository.
-2. Create a feature branch.
-
-```bash
-git checkout -b feature/your-feature-name
+```
+                         InterviewMate AI
+                                │
+                ┌───────────────┴────────────────┐
+                │                                │
+          CHROME EXTENSION                    BACKEND
+             (Frontend)                      (Server)
+                │                                │
+                ▼                                ▼
+        React + Vite                      Node.js
+        Tailwind CSS                      Express.js
+        Manifest V3                            │
+        Chrome Side Panel                      │
+                │                              │
+                │ HTTPS REST API               │
+                └───────────────┬──────────────┘
+                                │
+                  ┌─────────────┴─────────────┐
+                  │                           │
+                  ▼                           ▼
+              MongoDB                  Google Gemini
+              Database                     API
+                  │                           │
+                  └─────────────┬─────────────┘
+                                │
+                                ▼
+                         AI Generated Response
+                                │
+                                ▼
+                         Chrome Side Panel
 ```
 
-3. Commit your changes.
+---
 
-```bash
-git commit -m "Add your feature"
+## Application Flow
+
+### 1. User Authentication Flow
+```
+              User
+               │
+               ├─→ Register
+               │    │
+               │    ▼
+               │  Backend API /auth/register
+               │    │
+               │    ▼
+               │  Validate Email & Password
+               │    │
+               │    ▼
+               │  Hash Password (bcrypt)
+               │    │
+               │    ▼
+               │  Save User to MongoDB
+               │    │
+               │    ▼
+               │  Generate JWT Token
+               │    │
+               │    └─→ Return to Extension
+               │
+               └─→ Login
+                    │
+                    ▼
+                  Backend API /auth/login
+                    │
+                    ▼
+                  Find User by Email
+                    │
+                    ▼
+                  Compare Password (bcrypt)
+                    │
+                ┌───┴────┐
+                │        │
+              Valid    Invalid
+                │        │
+                ▼        ▼
+            Generate   Return Error
+            JWT Token
+                │
+                └─→ Return Token to Extension
+
+Token Storage & Usage:
+       ▼
+    Browser Local Storage
+       │
+       ▼
+Protected API Requests
+  (Authorization: Bearer {token})
+       │
+       ▼
+Backend JWT Verification
+       │
+       ▼
+Authorized Request Processing
 ```
 
-4. Push the branch.
-
-```bash
-git push origin feature/your-feature-name
+### 2. Automatic Problem Detection
+```
+User Opens LeetCode Problem
+            │
+            ▼
+     Chrome Content Script
+            │
+            ▼
+    Extract Problem Details
+     (Title, Difficulty, URL)
+            │
+            ▼
+      Chrome Messaging
+            │
+            ▼
+     Extension Frontend
+            │
+            ▼
+    Problem Context Available
+            │
+    ┌───────┼───────┐
+    ▼       ▼       ▼
+  Explain  Hint  Approach
 ```
 
-5. Open a Pull Request.
+### 3. AI Explanation Flow
+```
+User Opens Problem
+        │
+        ▼
+Problem Data Detected
+        │
+        ▼
+User Clicks "Explain"
+        │
+        ▼
+Extension Frontend
+        │
+        ▼
+Backend API
+        │
+        ▼
+Prompt Construction
+        │
+        ▼
+Google Gemini API
+        │
+        ▼
+AI Generated Explanation
+        │
+        ▼
+Backend Response
+        │
+        ▼
+Chrome Side Panel Display
+```
+
+### 4. Progressive Hint Flow
+```
+Coding Problem
+      │
+      ▼
+User Requests Hint
+      │
+      ▼
+Backend API
+      │
+      ▼
+Gemini API (Hint Prompt)
+      │
+      ▼
+Progressive Hint Generated
+      │
+      ▼
+Display in Side Panel
+      │
+      ▼
+User Attempts Problem
+      │
+      ▼
+Can Request Next Hint
+```
+
+### 5. Mock Interview Flow
+```
+Current Coding Problem
+          │
+          ▼
+Select Interview Settings
+  ├─ Difficulty (Easy/Med/Hard)
+  └─ Duration (5/10/15 mins)
+          │
+          ▼
+      Start Interview
+          │
+          ▼
+Generate Interview Questions
+   (Based on problem & difficulty)
+          │
+          ▼
+      User Answers
+          │
+          ▼
+Backend Sends Response to Gemini
+          │
+          ▼
+      AI Evaluates
+   ├─ Response Quality
+   ├─ Technical Understanding
+   ├─ Problem Solving
+   └─ Communication
+          │
+          ▼
+   Interview Feedback
+          │
+          ▼
+Store in MongoDB
+          │
+          ▼
+Interview Completed
+```
 
 ---
 
-##  License
+## Chrome Extension Architecture
 
-This project is licensed under the MIT License.
+InterviewMate AI is built using **Chrome Extension Manifest V3** for modern, secure extension development.
+
+```
+                     Chrome Browser
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+         LeetCode / Problem          InterviewMate AI
+         Solving Platform            Chrome Extension
+             │                           │
+             ▼                           ▼
+       Content Script              Side Panel UI
+             │                      (React App)
+             │                           │
+             └───────────┬───────────────┘
+                         │
+                  Chrome Messaging
+                         │
+                         ▼
+                  Extension Services
+                         │
+                    Message Relay
+                         │
+                  ┌──────┴──────┐
+                  ▼             ▼
+           Content Script   Background Service
+           Extracts Data    Message Handler
+```
+
+### Key Components
+
+**Content Script**
+- Runs on supported coding problem pages
+- Extracts problem information
+- Communicates via Chrome messaging
+- Detects problem context
+
+**Side Panel**
+- Main UI for InterviewMate features
+- React-based responsive interface
+- Displays explanations, hints, and feedback
+- Manages user interactions
+
+**Service Worker**
+- Handles background tasks
+- Manages message routing
+- Optional background operations
 
 ---
 
-##  Support
 
-If you found this project helpful, consider giving it a ⭐ on GitHub!
+## Security
+
+### Authentication & Authorization
+- JWT-based authentication for API requests
+- Password hashing using bcrypt (not plain text)
+- Protected backend endpoints with middleware
+- Token validation on every protected request
+
+### Data Protection
+- Passwords never transmitted in plain text
+- HTTPS for all API communications
+- Secure token storage in browser
+- MongoDB connection via secure URI
+
+---
+
+### Deployment Architecture
+```
+              User's Chrome Browser
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+    Chrome Web Store         Local Development
+     (Published Ext)          (npm run build)
+          │                       │
+          ▼                       ▼
+     dist/ folder          Production Bundle
+          │                       │
+          └───────────┬───────────┘
+                      │
+             Backend Cloud Server
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+       MongoDB Atlas         Google Gemini
+       (Cloud Database)           API
+```
+---
+
+## Technology Highlights
+
+### React + Vite
+- Lightning-fast development
+- Hot module replacement
+- Optimized production builds
+- Smaller bundle size
+
+### Chrome Manifest V3
+- Enhanced security
+- Better analytics
+- Service Workers instead of background pages
+- Future-proof extension platform
+
+### Express.js Backend
+- Fast and lightweight
+- Rich middleware ecosystem
+- Security best practices
+- RESTful API design
+
+### Google Gemini AI
+- AI responses
+- Context-aware assistance
+- Problem-specific guidance
+- Continuous improvement
+
+---
+
+
