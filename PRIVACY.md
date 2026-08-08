@@ -1,129 +1,65 @@
-# Privacy Policy — InterviewMate AI
+---
+layout: default
+title: Privacy Policy
+permalink: /privacy-policy/
+---
+
+# Privacy Policy
 
 **Last Updated: August 8, 2026**
 
-InterviewMate AI ("we", "our", or "the extension") is a Chrome extension designed to help users understand and practice coding problems on supported platforms such as LeetCode and GeeksforGeeks.
+## InterviewMate AI
 
-This Privacy Policy explains what information InterviewMate AI collects, how it is used, and how it is protected.
+InterviewMate AI is a Chrome extension designed to provide AI-powered assistance for coding problems and interview preparation.
 
- 1. Information We Collect
+## Information We Collect
 
-InterviewMate AI may collect or process the following information:
+InterviewMate AI may collect the following information:
 
-### Account Information
+- Email address used for account registration
+- Authentication information required to maintain your account
+- Interview questions and responses generated during use of the extension
+- Usage-related information necessary to provide the extension's features
 
-When you register or log in, we may collect information such as:
+## How We Use Information
 
-- Email address
-- Account authentication information
-- Authentication tokens required to keep you logged in
+The information is used only to:
 
-Authentication tokens are stored locally in the browser and are used to authenticate requests to our backend services.
+- Create and authenticate user accounts
+- Provide AI-powered explanations, hints, and mock interviews
+- Store and display interview history
+- Improve the functionality and reliability of the extension
 
-### Coding Problem Content
+## Authentication
 
-When the extension is used on supported coding platforms, it may access information from the currently active coding problem, including:
+InterviewMate AI uses JWT-based authentication. Authentication tokens are stored locally in the user's browser to maintain the user's logged-in session.
 
-- Problem title
-- Problem description
-- Problem difficulty
-- Other relevant problem information displayed on the page
+## AI Services
 
-This information is used to provide AI-powered explanations, hints, approaches, and interview assistance.
+InterviewMate AI uses Google Gemini API to generate AI-powered responses. Information necessary to process a user's request may be sent to the AI service.
 
-### Interview Data
+## Data Storage
 
-When you use the mock interview feature, the extension may process:
+User account and application data may be stored using MongoDB Atlas. Backend services are hosted using cloud infrastructure.
 
-- Interview questions
-- Your answers
-- Interview evaluations
-- Interview scores
-- Interview review information
-- Interview history
+## Data Sharing
 
-Interview history may be stored on our backend so that you can access previous interview results.
+We do not sell or transfer users' personal information to third parties except where necessary to provide the extension's core functionality or comply with legal requirements.
 
- 2. How We Use Information
+## Data Security
 
-We use the information described above only to provide and improve the functionality of InterviewMate AI.
+Reasonable security measures are used to protect user information. However, no method of electronic storage or transmission is completely secure.
 
-Information may be used to:
+## Data Deletion
 
-- Authenticate users
-- Provide AI-generated explanations and hints
-- Analyze coding problems
-- Generate mock interview questions
-- Evaluate interview answers
-- Display interview results and reviews
-- Store and retrieve interview history
-- Maintain and improve the extension's functionality
+Users may request deletion of their account and associated data by contacting the developer through the support information provided on the Chrome Web Store listing.
 
-We do not use collected information for unrelated purposes.
+## Changes to This Privacy Policy
 
- 3. AI Services
+This Privacy Policy may be updated from time to time. Any changes will be reflected on this page with an updated "Last Updated" date.
 
-InterviewMate AI uses Google's Gemini API to provide AI-powered features.
+## Contact
 
-Relevant coding problem information and interview-related information may be sent to the AI service when you explicitly use features that require AI processing.
+For questions regarding this Privacy Policy, please contact:
 
-We do not send your authentication credentials or JWT tokens to the AI service.
-
- 4. Data Storage
-
-Authentication tokens and other necessary client-side information may be stored locally in the browser.
-
-Interview history and account-related information may be stored on our backend services.
-
-We retain information only for as long as necessary to provide the relevant functionality or as required for legitimate operational purposes.
-
- 5. Data Sharing
-
-We do not sell or rent personal information.
-
-Information may be shared with third-party services only when necessary to provide the extension's functionality, such as:
-
-- Google Gemini API for AI-powered processing
-- Our backend services for authentication and interview history
-
-We do not use or transfer user data for purposes unrelated to the extension's single purpose.
-
- 6. Data Security
-
-We take reasonable measures to protect user information.
-
-Authentication requests are protected using secure authentication mechanisms, and communication between the extension and backend services is performed over HTTPS.
-
-Users should keep their account credentials secure and should not share their authentication information with others.
-
- 7. Website Content
-
-InterviewMate AI accesses coding problem content from supported websites only when necessary to provide its core functionality.
-
-The extension does not intentionally collect or track general browsing history outside the supported coding problem pages required for its functionality.
-
- 8. User Control
-
-Users can stop using the extension at any time by disabling or uninstalling it.
-
-Users may also log out of their account where the logout functionality is provided.
-
- 9. Children's Privacy
-
-InterviewMate AI is not specifically directed toward children under the age of 13, and we do not knowingly collect personal information from children.
-
-## 10. Changes to This Privacy Policy
-
-We may update this Privacy Policy when our extension's functionality or data practices change.
-
-Any updates will be published on this page with a revised "Last Updated" date.
-
- 11. Contact
-
-If you have questions about this Privacy Policy or InterviewMate AI's data practices, you can contact us through the project's support/contact information provided on the extension's listing or repository.
-
----
-
-**InterviewMate AI**
-
-AI-powered coding problem assistance and mock interview companion.
+**Email:** humeraofficial2211@gmail.com
