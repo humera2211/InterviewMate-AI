@@ -3,7 +3,7 @@ import { defineManifest } from "@crxjs/vite-plugin";
 export default defineManifest({
   manifest_version: 3,
   name: "InterviewMate AI",
-  version: "1.0.0",
+  version: "1.0.1",
   description: "AI Interview Companion for LeetCode and GeeksforGeeks",
 
   action: {
@@ -11,7 +11,7 @@ export default defineManifest({
     default_title: "InterviewMate AI",
   },
 
-  permissions: ["storage", "activeTab", "tabs", "scripting", "sidePanel"],
+  permissions: ["scripting", "sidePanel"],
 
   side_panel: {
     default_path: "index.html",
@@ -25,7 +25,6 @@ export default defineManifest({
   host_permissions: [
     "https://leetcode.com/*",
     "https://www.geeksforgeeks.org/*",
-    "http://localhost:8080/*",
     "https://interviewmate-ai-backend.onrender.com/*",
   ],
 
