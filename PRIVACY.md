@@ -1,3 +1,9 @@
+---
+layout: default
+title: Privacy Policy
+permalink: /privacy-policy/
+---
+
 # Privacy Policy — InterviewMate AI
 
 **Last Updated: August 14, 2026**
