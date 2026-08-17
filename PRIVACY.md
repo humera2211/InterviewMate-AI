@@ -6,7 +6,7 @@ permalink: /privacy-policy/
 
 # Privacy Policy — InterviewMate AI
 
-**Last Updated: August 14, 2026**
+**Last Updated:** August 18, 2026
 
 ## 1. Introduction
 
@@ -36,11 +36,10 @@ This information is used to create and authenticate your account and provide acc
 
 InterviewMate AI uses JWT-based authentication.
 
-Authentication tokens required to maintain a logged-in session may be stored locally in the user's browser.
-
-Authentication information is used only to authenticate requests to our backend services and maintain the user's session.
-
-We do not intentionally send authentication tokens or passwords to Google Gemini or other AI services.
+- Authentication tokens required to maintain a logged-in session may be stored locally in the user's browser
+- Authentication information is used only to authenticate requests to our backend services and maintain the user's session
+- We do not intentionally send authentication tokens or passwords to Google Gemini or other AI services
+- Passwords are hashed using industry-standard cryptographic algorithms (e.g., bcrypt) and never stored in plaintext
 
 ### 2.3 Coding Problem and Website Content
 
@@ -88,17 +87,20 @@ InterviewMate AI does not intentionally collect unrelated browsing activity.
 
 InterviewMate AI requests the following permissions to function:
 
-### Scripting Permission
+### 4.1 Scripting Permission
+
 - **Purpose:** Allows the extension to inject assistance features, UI elements, and helper functions into supported coding websites (LeetCode, GeeksforGeeks, etc.)
 - **Use:** Used only to provide coding problem assistance, hints, explanations, and interview preparation features
 - **Not Used For:** Modifying non-coding websites, injecting ads, or tracking user activity on unrelated pages
 
-### Side Panel Permission
+### 4.2 Side Panel Permission
+
 - **Purpose:** Allows the extension to display a side panel interface for mock interviews, explanations, hints, and interview feedback
 - **Use:** Used to provide a dedicated UI space for the extension's features within the browser
 - **Not Used For:** Displaying ads or tracking activity
 
-### Host Permissions
+### 4.3 Host Permissions
+
 - **Purpose:** Specifies which websites the extension can access and modify (LeetCode, GeeksforGeeks, and other supported coding platforms)
 - **Hosts Accessed:** `https://leetcode.com/*`, `https://www.geeksforgeeks.org/*`, and other explicitly supported coding websites
 - **Use:** Used only to read and assist with coding problems on these websites
@@ -112,7 +114,8 @@ These permissions are used only to provide the extension's stated functionality 
 
 InterviewMate AI uses browser storage mechanisms for the following purposes:
 
-### Local Storage
+### 5.1 Local Storage
+
 InterviewMate AI stores the following information locally in your browser:
 
 - **JWT Authentication Tokens:** Used to maintain your logged-in session and authenticate requests to our backend
@@ -121,16 +124,20 @@ InterviewMate AI stores the following information locally in your browser:
 
 **Important:** All local storage data remains on your device and is not automatically transmitted to our servers. Local storage is only sent to our backend when you explicitly request a feature that requires server-side processing.
 
-### Cookies
-InterviewMate AI does **NOT** use cookies.
+### 5.2 Cookies
 
-### Browser Storage Security
+InterviewMate AI does NOT use cookies.
+
+### 5.3 Browser Storage Security
+
 - Authentication tokens are stored securely and are not exposed to third-party scripts
 - Local storage is accessible only to InterviewMate AI and cannot be accessed by other extensions or websites
 - You can clear all stored data by uninstalling the extension or using your browser's storage management tools
 
-### Clearing Your Data
+### 5.4 Clearing Your Data
+
 To clear all local data stored by InterviewMate AI:
+
 1. Go to Chrome Settings → Privacy and Security → Clear Browsing Data
 2. Select "Cookies and other site data" and "Cached images and files"
 3. Or uninstall the extension, which will automatically remove all associated local data
@@ -157,9 +164,11 @@ Information may be used to:
 - Maintain and secure backend services
 - Detect and resolve technical problems affecting the extension
 
-We do not sell user data.
+**What We Do NOT Do:**
 
-We do not use user data for targeted advertising or unrelated commercial purposes.
+- We do not sell user data
+- We do not use user data for targeted advertising or unrelated commercial purposes
+- We do not share data with marketing partners or data brokers
 
 ---
 
@@ -178,13 +187,14 @@ Depending on the feature being used, this may include:
 - Interview questions
 - Other information necessary to generate the requested AI response
 
-**Important Data Practices:**
+### 7.1 Important Data Practices
+
 - Google Gemini is used only to provide the AI functionality requested by the user
 - We do not intentionally send passwords, JWT authentication tokens, or other authentication credentials to Google Gemini
 - Data sent to Google Gemini is not used to train Google's models or for any purpose other than generating your requested AI response
 - Users can choose not to use AI-powered features that require sending information for AI processing
 
-For information about Google's handling of data sent to its services, users should review Google's applicable privacy and data-processing documentation at https://policies.google.com/privacy.
+For information about Google's handling of data sent to its services, users should review Google's applicable privacy and data-processing documentation at [https://policies.google.com/privacy](https://policies.google.com/privacy).
 
 ---
 
@@ -220,10 +230,12 @@ InterviewMate AI may store certain information on its backend database, includin
 - Interview history
 - Other application data required to provide the extension's features
 
-### Backend Storage
+### 9.1 Backend Storage
+
 Application data is stored using MongoDB Atlas with appropriate security measures.
 
-### Local Browser Storage
+### 9.2 Local Browser Storage
+
 Authentication tokens used for the client-side session may be stored locally in the user's browser using browser local storage APIs.
 
 Data stored locally in the browser remains on the user's device unless transmitted to the backend as required to provide a requested feature.
@@ -234,20 +246,25 @@ Data stored locally in the browser remains on the user's device unless transmitt
 
 InterviewMate AI uses third-party services to provide its functionality.
 
-### Google Gemini
-Google Gemini is used for AI-powered processing and generation of explanations, hints, approaches, mock interview questions, and evaluations.
+### 10.1 Google Gemini
 
-Relevant information may be transmitted to Google Gemini when an AI feature is requested.
+- Google Gemini is used for AI-powered processing and generation of explanations, hints, approaches, mock interview questions, and evaluations
+- Relevant information may be transmitted to Google Gemini when an AI feature is requested
+- Review [Google's privacy policy](https://policies.google.com/privacy) for details on their data handling
 
-### MongoDB Atlas
-MongoDB Atlas is used to store application and interview-related data required by InterviewMate AI.
+### 10.2 MongoDB Atlas
 
-### Render
-Our backend services are hosted using Render infrastructure.
+- MongoDB Atlas is used to store application and interview-related data required by InterviewMate AI
+- Data is stored with encryption and security measures
 
-Data transmitted to our backend may therefore be processed through the infrastructure required to operate our backend service.
+### 10.3 Render
 
-**Data Transfer:** These service providers are used only to provide the functionality of InterviewMate AI. We do not sell user data to third parties, advertising networks, or data brokers.
+- Our backend services are hosted using Render infrastructure
+- Data transmitted to our backend may be processed through the infrastructure required to operate our backend service
+
+### 10.4 Data Transfer
+
+These service providers are used only to provide the functionality of InterviewMate AI. We do not sell user data to third parties, advertising networks, or data brokers.
 
 ---
 
@@ -271,14 +288,15 @@ We do not share user data for targeted advertising or unrelated purposes.
 
 ## 12. Data Security
 
-We take reasonable technical and organizational measures to protect user information.
+We take reasonable technical and organizational measures to protect user information:
 
-- Data transmitted between the Chrome extension, backend services, and third-party services is transmitted using HTTPS/TLS encryption
-- Authentication information is protected and is not intentionally disclosed publicly
-- Local storage data is protected by browser security mechanisms
-- We do not store sensitive information like passwords in plaintext
+- **HTTPS/TLS Encryption:** Data transmitted between the Chrome extension, backend services, and third-party services uses HTTPS/TLS encryption
+- **Password Hashing:** Passwords are hashed using industry-standard cryptographic algorithms (e.g., bcrypt) and never stored in plaintext
+- **Token Protection:** Authentication tokens (JWT) are protected and never intentionally disclosed publicly
+- **Local Storage Security:** Local storage data is protected by browser security mechanisms
+- **Secure Infrastructure:** Backend services are hosted on secure, encrypted infrastructure
 
-However, no method of electronic transmission or storage can be guaranteed to be completely secure. Users should maintain secure passwords and not share their account credentials.
+**User Responsibility:** No method of electronic transmission or storage can be guaranteed to be completely secure. Users should maintain secure passwords, not share their account credentials, and keep their browser and operating system updated.
 
 ---
 
@@ -286,9 +304,9 @@ However, no method of electronic transmission or storage can be guaranteed to be
 
 We retain user information only for as long as necessary to provide InterviewMate AI's functionality, maintain the user's account, provide interview history, maintain security, or comply with applicable legal obligations.
 
-Interview history may remain stored until the user requests deletion or until it is no longer required for the service.
-
-Local storage data on your device is retained until you clear it or uninstall the extension.
+- Interview history may remain stored until the user requests deletion or until it is no longer required for the service
+- Local storage data on your device is retained until you clear it or uninstall the extension
+- Deleted account data will be removed from our backend within 30 days
 
 ---
 
@@ -296,11 +314,11 @@ Local storage data on your device is retained until you clear it or uninstall th
 
 Users may request deletion of their InterviewMate AI account and associated data by contacting:
 
-**Email:** humerafficial2211@gmail.com
+**Email:** humeraofficial2211@gmail.com
 
 A deletion request should be made from or include the email address associated with the InterviewMate AI account so that the request can be verified.
 
-**Timeline:** After verification, we will process the deletion request within **30 days**, subject to applicable legal or security requirements.
+**Timeline:** After verification, we will process the deletion request within 30 days, subject to applicable legal or security requirements.
 
 **Automatic Data Removal:** Uninstalling the extension automatically removes all locally stored data from your device.
 
@@ -316,6 +334,7 @@ Users can:
 - Request deletion of their account and associated backend data
 - Choose not to use AI-powered features that require sending information for AI processing
 - Clear local storage data using browser settings
+- Contact us to exercise their privacy rights
 
 ---
 
@@ -344,6 +363,8 @@ InterviewMate AI's collection, use, and transfer of user data are limited to the
 
 InterviewMate AI is not specifically directed toward children under the age of 13, and we do not knowingly collect personal information from children under 13.
 
+If we become aware that we have collected personal information from a child under 13, we will delete such information promptly.
+
 ---
 
 ## 19. Changes to This Privacy Policy
@@ -354,16 +375,52 @@ Any updates will be published on this page with a revised "Last Updated" date.
 
 Continued use of InterviewMate AI after changes are made constitutes acceptance of the updated Privacy Policy.
 
+We will notify users of material changes to this policy via email or through the extension.
+
 ---
 
-## 20. Contact
+## 20. GDPR and EU User Rights
+
+If you are located in the European Union, you have the following additional rights under the General Data Protection Regulation (GDPR):
+
+- **Right to Access:** Request a copy of your personal data that we hold
+- **Right to Rectification:** Request correction of inaccurate personal data
+- **Right to Erasure:** Request deletion of your personal data ("Right to be Forgotten")
+- **Right to Data Portability:** Request your data in a portable, structured format
+- **Right to Object:** Object to processing of your personal data
+- **Right to Restrict Processing:** Request restriction of processing of your personal data
+- **Right to Withdraw Consent:** Withdraw your consent to data processing at any time
+
+To exercise these rights, contact us at: humeraofficial2211@gmail.com
+
+We will respond to GDPR requests within 30 days as required by applicable law. You also have the right to lodge a complaint with your local data protection authority.
+
+---
+
+## 21. California User Rights (CCPA)
+
+If you are a California resident, you have the following rights under the California Consumer Privacy Act (CCPA):
+
+- **Right to Know:** Request what personal information we collect and how it is used
+- **Right to Delete:** Request deletion of your personal information
+- **Right to Opt-Out:** Opt-out of any potential data sales (though we do not sell data)
+
+To exercise these rights, contact us at: humeraofficial2211@gmail.com
+
+---
+
+## 22. Contact
 
 For questions regarding this Privacy Policy or InterviewMate AI's data practices, please contact:
 
 **Email:** humeraofficial2211@gmail.com
 
+**Service:** InterviewMate AI — AI-powered coding problem assistance and interview preparation companion
+
+We will respond to privacy inquiries within 30 days.
+
 ---
 
-**InterviewMate AI**
+**Last Updated:** August 18, 2026
 
-AI-powered coding problem assistance and interview preparation companion.
+By using InterviewMate AI, you acknowledge that you have read and understood this Privacy Policy.
